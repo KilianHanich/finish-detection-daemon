@@ -15,10 +15,9 @@ class EventHandler(pyinotify.ProcessEvent):
 	def __init__(self):
 		pyinotify.ProcessEvent.__init__(self)
 	def process_IN_CREATE(self, event):
-		print(event.pathname, flush=True)
+		print("new file:", event.pathname, flush=True)
 		try:
 			customer = '.'.join(os.path.basename(event.pathname).split('.')[:-1])
-			print(customer)
 			customers.remove(customer)
 			print("customer", customer, "finished", flush=True)
 			os.remove(event.pathname)
