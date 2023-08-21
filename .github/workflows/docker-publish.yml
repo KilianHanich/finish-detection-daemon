@@ -1,0 +1,38 @@
+name: Image
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 5'
+
+env:
+  REGISTRY: ghcr.io/${{ github.repository_owner }}
+  IMAGE_NAME: ${{ github.event.repository.name }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - name: lower registry name
+        run: |
+          echo "REGISTRY=${REGISTRY,,}" >>"${GITHUB_ENV}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Image
+        id: build-image
+        run: ./build.bash
+
+      - name: Publish Image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: latest
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}

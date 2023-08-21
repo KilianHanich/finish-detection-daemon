@@ -26,5 +26,6 @@ chmod +x "${mnt}/usr/bin/finishDetectionDaemon.py"
 
 buildah config --entrypoint '["/usr/bin/finishDetectionDaemon.py"]' $ctr
 
-buildah commit $ctr finishDetectionDaemon
+buildah commit $ctr finish-detection-daemon
 buildah rm $ctr
+
