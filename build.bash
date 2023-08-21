@@ -23,6 +23,9 @@ cp finishDetectionDaemon.py "${mnt}/usr/bin/"
 chmod +x "${mnt}/usr/bin/finishDetectionDaemon.py"
 '
 
+buildah config --label org.opencontainers.image.source="https://github.com/KilianHanich/finish-detection-daemon" $ctr
+
+buildah config --label org.opencontainers.image.license="EUPL-1.2" $ctr
 
 buildah config --entrypoint '["/usr/bin/finishDetectionDaemon.py"]' $ctr
 
