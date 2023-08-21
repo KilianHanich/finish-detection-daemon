@@ -6,6 +6,7 @@ import sys
 import pyinotify
 import os
 import subprocess as sp
+import signal
 
 DIRECTORY="/wd"
 print(sys.argv)
@@ -27,6 +28,7 @@ class EventHandler(pyinotify.ProcessEvent):
 			print("finished")
 			sys.exit(0)
 
+signal.signal(signal.SIGTERM, lambda _,__: sys.exit(1))
 wm = pyinotify.WatchManager()
 notifier = pyinotify.Notifier(wm, EventHandler())
 watch_descriptors = wm.add_watch(DIRECTORY, pyinotify.IN_CREATE)

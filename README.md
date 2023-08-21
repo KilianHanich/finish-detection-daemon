@@ -10,6 +10,8 @@ You inform the daemon of the files (which are named customers) to look out for v
 
 When everything was detected, it will exit with status code 0.
 
+When it receives SIGKILL (e.g. from stopping the container), it will exit with status code 1.
+
 # Example
 
 ```
