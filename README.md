@@ -17,7 +17,7 @@ When it receives SIGKILL (e.g. from stopping the container), it will exit with s
 ```
 podman run --rm \
     --volume /path/to/directory:/wd \
-    finishDetectionDaemon \
+    finish-detection-daemon \
     foo \
     bar
 ```
