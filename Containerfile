@@ -3,7 +3,7 @@ FROM fedora:${version}-aarch64 as build
 ARG version
 WORKDIR /sysroot
 RUN echo "fastestmirror=True" >>/etc/dnf/dnf.conf
-RUN dnf install --installroot /sysroot --releasever "${version}" -y --setopt install_weak_deps=false python3-inotify python3 && dnf clean all --installroot /sysroot -y
+RUN dnf install --use-host-config --installroot /sysroot --releasever "${version}" -y --setopt install_weak_deps=false python3-inotify python-unversioned-command && dnf clean all --installroot /sysroot -y
 
 FROM scratch
 COPY --from=build /sysroot /
